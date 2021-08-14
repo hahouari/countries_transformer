@@ -1,0 +1,23 @@
+{
+  "name": "countries_transformer",
+  "version": "1.0.0",
+  "description": "Create json format countries",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hahouari/countries_transformer.git"
+  },
+  "keywords": [],
+  "author": "Hocine Abdellatif Houari",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hahouari/countries_transformer/issues"
+  },
+  "homepage": "https://github.com/hahouari/countries_transformer#readme",
+  "devDependencies": {
+    "typescript": "^4.3.5"
+  }
+}
