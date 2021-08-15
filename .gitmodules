@@ -1,6 +1,0 @@
-[submodule "world_countries"]
-	path = world_countries
-	url = https://github.com/stefangabos/world_countries
-[submodule "flag-icon-css"]
-	path = flag-icon-css
-	url = https://github.com/lipis/flag-icon-css
