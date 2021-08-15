@@ -1,11 +1,19 @@
 {
   "compilerOptions": {
-    "target": "es5",            // Compatible with older browsers
-    "module": "CommonJS",            // Compatible with both Node.js and browser
-    "moduleResolution": "node", // Tell tsc to look in node_modules for modules
-    "sourceMap": true,          // Creates *.js.map files
-    "strict": true,             // Strict types, eg. prohibits 
-    "alwaysStrict": true        // Enable JavaScript's "use strict" mode
+    "target": "ES2017",
+    "module": "CommonJS",
+    "removeComments": true,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "strict": true,
+    "alwaysStrict": true,
+    "baseUrl": "./src",
+    "outDir": "dist",
+    "skipLibCheck": true,
+    "resolveJsonModule": true
   },
   "include": ["**/*.ts",],
   "exclude": ["node_modules"]
