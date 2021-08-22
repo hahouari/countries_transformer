@@ -26,6 +26,7 @@
     "watch": "^1.0.2"
   },
   "dependencies": {
+    "country-json": "^1.1.2",
     "world_countries_lists": "^2.2.0"
   }
 }

@@ -1,6 +1,7 @@
 import * as arJSon from "world_countries_lists/data/ar/world.json";
 import * as frJSon from "world_countries_lists/data/fr/world.json";
 import * as enJSon from "world_countries_lists/data/en/world.json";
+import * as enJsonWithContinents from "../assets/country-and-continent.json";
 import * as fs from "fs";
 import { join, basename, extname } from "path";
 
@@ -15,14 +16,24 @@ console.log("wait for processing...");
 
 let arData = arJSon.sort((a, b) => a.id - b.id);
 let frData = frJSon.sort((a, b) => a.id - b.id);
-// let enData = enJSon.sort((a, b) => a.id - b.id);
+let enData = enJSon.sort((a, b) => a.id - b.id);
 
+// add continents to enJSon
+enJsonWithContinents.forEach((withContinentItem) => {
+  enJSon.forEach((item) => {});
+});
 let ourData = [];
 
 for (let i = 0; i < frData.length; i++) {
+  const continent = enJsonWithContinents.find(
+    (item) =>
+      item.Three_Letter_Country_Code?.toLowerCase() ===
+      enData[i].alpha3.toLowerCase()
+  )?.Continent_Name;
   let dataElement = {
     alpha2: frData[i].alpha2,
-    // nameEN: enData[i].name,
+    continent: continent || "unknown",
+    nameEN: enData[i].name,
     nameFR: frData[i].name,
     nameAR: arData[i].name,
   };
@@ -86,6 +97,11 @@ for (let i = 0; i < dims.length; i++) {
     });
   }
 
+  if (ourData.some((data) => data.continent === "unknown")) {
+    console.warn(
+      'Warning!! some countries\' continents are not provided and put as "unknown", replace them with a correct value.'
+    );
+  }
   console.log(`finished ${dim}x${dim} images, working on the rest if any.`);
 }
 
