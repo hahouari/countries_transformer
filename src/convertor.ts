@@ -2,6 +2,7 @@ import * as arJSon from "world_countries_lists/data/ar/world.json";
 import * as frJSon from "world_countries_lists/data/fr/world.json";
 import * as enJSon from "world_countries_lists/data/en/world.json";
 import * as enJsonWithContinents from "../assets/country-and-continent.json";
+import * as enJsonWithDial from "../assets/alpha-and-dial.json";
 import * as fs from "fs";
 import { join, basename, extname } from "path";
 
@@ -18,10 +19,14 @@ let arData = arJSon.sort((a, b) => a.id - b.id);
 let frData = frJSon.sort((a, b) => a.id - b.id);
 let enData = enJSon.sort((a, b) => a.id - b.id);
 
-// add continents to enJSon
-enJsonWithContinents.forEach((withContinentItem) => {
-  enJSon.forEach((item) => {});
-});
+let dialCodeData = enJsonWithDial.reduce<{ [x: string]: string }>(
+  (obj, { isoCode, dialCode }) => {
+    obj[isoCode.toLowerCase()] = dialCode;
+    return obj;
+  },
+  {}
+);
+
 let ourData = [];
 
 for (let i = 0; i < frData.length; i++) {
@@ -31,11 +36,12 @@ for (let i = 0; i < frData.length; i++) {
       enData[i].alpha3.toLowerCase()
   )?.Continent_Name;
   let dataElement = {
-    alpha2: frData[i].alpha2,
+    alpha2: frData[i].alpha2 || "unknown",
     continent: continent || "unknown",
-    nameEN: enData[i].name,
-    nameFR: frData[i].name,
-    nameAR: arData[i].name,
+    nameEN: enData[i].name || "unknown",
+    nameFR: frData[i].name || "unknown",
+    nameAR: arData[i].name || "unknown",
+    dial: dialCodeData[frData[i].alpha2] || "unknown",
   };
 
   if (dataElement && !hasNull(dataElement) && dataElement.alpha2 != "il") {
