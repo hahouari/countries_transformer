@@ -6,13 +6,6 @@ import * as enJsonWithDial from "../assets/alpha-and-dial.json";
 import * as fs from "fs";
 import { join, basename, extname } from "path";
 
-function hasNull(target: any) {
-  for (var member in target) {
-    if (!target[member]) return true;
-  }
-  return false;
-}
-
 console.log("wait for processing...");
 
 let arData = arJSon.sort((a, b) => a.id - b.id);
@@ -36,15 +29,15 @@ for (let i = 0; i < frData.length; i++) {
       enData[i].alpha3.toLowerCase()
   )?.Continent_Name;
   let dataElement = {
-    alpha2: frData[i].alpha2 || "unknown",
-    continent: continent || "unknown",
-    nameEN: enData[i].name || "unknown",
-    nameFR: frData[i].name || "unknown",
-    nameAR: arData[i].name || "unknown",
-    dial: dialCodeData[frData[i].alpha2] || "unknown",
+    alpha2: frData[i].alpha2,
+    continent: continent,
+    // nameEn: enData[i].name,
+    nameFr: frData[i].name,
+    nameAr: arData[i].name,
+    dial: dialCodeData[frData[i].alpha2],
   };
 
-  if (dataElement && !hasNull(dataElement) && dataElement.alpha2 != "il") {
+  if (dataElement && dataElement.alpha2 != "il") {
     ourData.push(dataElement);
   }
 }
@@ -57,7 +50,7 @@ if (!fs.existsSync(distDir)) {
 
 fs.writeFileSync(
   join(distDir, "countries.json"),
-  JSON.stringify(ourData, null, 2)
+  JSON.stringify(ourData, (_, value) => (value === undefined ? null : value), 2)
 );
 
 console.log("finished JSON format, working on images");
